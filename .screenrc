@@ -1,0 +1,40 @@
+## ORIGINAL SOURCES:
+ # http://www.pixelbeat.org/settings/.screenrc
+ # http://snipplr.wordpress.com/2012/04/07/my-screenrc-with-custom-hardstatus-and-easy-switching-between-screens/
+ # https://bbs.archlinux.org/viewtopic.php?id=55618
+
+## Bind F11 and F12 (NOT F1 and F2) to previous and next screen window
+   bindkey -k F1 prev
+   bindkey -k F2 next
+
+startup_message off
+
+## Hardstatus line at bottom
+ # SOURCES:
+ # http://superuser.com/questions/212392/how-to-include-screens-session-name-in-hardstatus
+ # http://www.debian-administration.org/article/560/An_introduction_to_the_visual_features_of_GNU_Screen
+   hardstatus on
+   hardstatus alwayslastline
+   hardstatus string 'Current screen [[%`]] %-= Use the command-keys [Ctrl]+[A] and [D] to detach it'
+   backtick 0 30 30 sh -c 'screen -ls | grep --color=no -o "$PPID[^[:space:]]*"'
+
+# From Stephen Shirley
+# Don't block command output if the terminal stops responding
+# (like if the ssh connection times out for example).
+nonblock on
+
+# Allow editors etc. to restore display on exit
+# rather than leaving existing text in place
+altscreen on
+
+# Enable 256-color mode when screen is started with TERM=xterm-256color
+# Taken from: http://frexx.de/xterm-256-notes/
+#
+# Note that TERM != "xterm-256color" within a screen window. Rather it is
+# "screen" or "screen-bce"
+#
+# terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+#termcapinfo xterm-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
