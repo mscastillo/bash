@@ -1,0 +1,20 @@
+URLs=(
+"http://www.cell.com/cell-stem-cell/inpress.rss"
+"http://www.bloodjournal.org/rss/current.xml" 
+)
+
+echo
+echo -e $BRESET$YELLOWB "RSS: HOT PAPERS" $RESET
+echo
+
+for k in $( seq 0 $((${#URLs[@]} - 1)) ) ; do
+
+ wget -O ~/.rss.xml -nv --quiet -c ${URLs[$k]}
+ JOURNAL=$( cat .rss.xml | sed 's/<\!\[CDATA\[//' | sed 's/\]\]>//' | grep -o '<prism:publicationName>[^<]*' | grep -o "[^>]*$" | head -1 )
+ TITLE=$( cat .rss.xml | sed 's/<\!\[CDATA\[//' | sed 's/\]\]>//' | grep -o '<dc:title>[^<]*' | grep -o "[^>]*$" | head -1 )
+ echo -e $BRESET$REDB "$JOURNAL" $RESET
+ echo -e $BRED "$TITLE" $RESET
+ echo
+ rm -f ~/.rss.xml
+
+done
