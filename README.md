@@ -7,10 +7,11 @@ Scripts for customizing the bash and others terminal tools. Settings for the cur
 cat <<EOF >> ~/.bashrc
 if [ -f ~/.bash_aliases ] ; then
  . ~/.bash_aliases ;
+fi
 if [ -f ~/.bash_profile ] ; then
  . ~/.bash_profile ;
- fi
- EOF
+fi
+EOF
 ```
 
 Alternatively, use `/etc/profile` and `/etc/bashrc` to customize general user's settings.
